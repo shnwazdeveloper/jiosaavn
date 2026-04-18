@@ -23,15 +23,4 @@ class TEXT:
 </blockquote>
 """
 
-    ABOUT_MSG = """
-<blockquote>
-**🤖 Bot Name:** [🤖 {me.username}](https://t.me/{me.username})
-**📝 Language:** [Python 3](https://www.python.org/)
-**🧰 Framework:** [Pyrogram](https://github.com/pyrogram/pyrogram)
-**👨‍💻 Developer:** [Anonymous](https://t.me/The_proGrammerr)
-**👑 Maintained By:** [RangoZex](https://t.me/RangoZex)
-**📢 Updates Channel:** [NS Bots](https://t.me/NsBotsOfficial)
-**👥 Support Group:** [AMC Support](https://t.me/amcDevSupport)
-**🔗 Source Code:** [GitHub Repository](https://github.com/Ns-AnoNymouS/jiosaavn)
-</blockquote>
-"""
+  
