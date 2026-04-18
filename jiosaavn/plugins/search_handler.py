@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 )
 async def search(client: Bot, message: Message|CallbackQuery):
     if isinstance(message, Message):
-        send_msg = await message.reply("__**Processing... ⏳**__", quote=True)
+        send_msg = await message.reply("__**ᴘʀᴏᴄᴇssɪɴɢ...**__", quote=True)
     else:
         await message.answer()
         send_msg = message.message
@@ -43,20 +43,19 @@ async def search(client: Bot, message: Message|CallbackQuery):
     except RuntimeError as e:
         logger.error(e)
         traceback.print_exc()
-        return await send_msg.edit("Connection refused by jiosaavn api. Please try again")
+        return await send_msg.edit("ᴄᴏɴɴᴇᴄᴛɪᴏɴ ʀᴇғᴜsᴇᴅ ʙʏ ᴊɪᴏsᴀᴀᴠɴ ᴀᴘɪ. ᴘʟᴇᴀsᴇ ᴛʀʏ ᴀɢᴀɪɴ")
 
     if not response:
-        return await send_msg.edit(f'🔎 No search result found for your query `{query}`')
+        return await send_msg.edit(f'ɴᴏ sᴇᴀʀᴄʜ ʀᴇsᴜʟᴛ ғᴏᴜɴᴅ ғᴏʀ ʏᴏᴜʀ Qᴜᴇʀʏ `{query}`')
 
     buttons = []
     if search_type == "all" or search_type == "topquery":
-        # Define the mapping for button labels and callback data based on result type
         button_song_type_map = {
-            "songs": (f"🎙 Songs", f"search#songs"),
-            "albums": (f"📚 Albums", f"search#albums"),
-            "playlists": (f"💾 Playlists", f"search#playlists"),
-            "artists": (f"👨‍🎤 Artists", f"search#artists"),
-            "topquery": (f"✨ Top Result", f"search#topquery"),
+            "songs":     ("sᴏɴɢs",     "search#songs"),
+            "albums":    ("ᴀʟʙᴜᴍs",    "search#albums"),
+            "playlists": ("ᴘʟᴀʏʟɪsᴛs", "search#playlists"),
+            "artists":   ("ᴀʀᴛɪsᴛs",   "search#artists"),
+            "topquery":  ("ᴛᴏᴘ ʀᴇsᴜʟᴛ","search#topquery"),
         }
 
         if search_type == 'topquery':
@@ -65,77 +64,72 @@ async def search(client: Bot, message: Message|CallbackQuery):
                 key=lambda x: x.get("position", 0)
             )
             for data in sub_sorted_data:
-                # Extract relevant information from the result
-                title = data.get("title", "unkown")
+                title = data.get("title", "ᴜɴᴋɴᴏᴡɴ")
                 title = html.unescape(title)
                 album = data.get("album")
                 item_type = data.get("type")
                 item_id = data.get("url", "/").rsplit("/", 1)[1]
-                type_emoji_map = {
-                    "song": "🎙",
-                    "album": "📚",
-                    "playlist": "💾",
-                    "artist": "👨‍🎤",
+                type_label_map = {
+                    "song":     "sᴏɴɢ",
+                    "album":    "ᴀʟʙᴜᴍ",
+                    "playlist": "ᴘʟᴀʏʟɪsᴛ",
+                    "artist":   "ᴀʀᴛɪsᴛ",
                 }
-                if item_type not in type_emoji_map:
+                if item_type not in type_label_map:
                     continue
-                emoji = type_emoji_map[item_type]
-                button_text = f"{emoji} {title} from {album}" if album else f"{emoji} {title}"
-                callback_data = f"{item_type}#{item_id}#topquery" if item_type == "song" else f"{item_type}#{item_id}#topquery"
+                label = type_label_map[item_type]
+                button_text = f"{label} - {title} ғʀᴏᴍ {album}" if album else f"{label} - {title}"
+                callback_data = f"{item_type}#{item_id}#topquery"
                 buttons.append([InlineKeyboardButton(text=button_text, callback_data=callback_data)])
         else:
-            # Sorts the response data by position to maintain consistency with the official JioSaavn website's.
             sorted_data = sorted(response.items(), key=lambda value: value[1].get("position", 0))
             for result_type, result in sorted_data:
-                # ignore if the search type is unkown
                 if result_type not in button_song_type_map:
                     continue
-
                 if result.get("data"):
                     button_label, callback_data = button_song_type_map.get(result_type, (None, None))
                     buttons.append([InlineKeyboardButton(text=button_label, callback_data=callback_data)])
-        text = f"**🔍 Search Query:** {query}\n\n__Please select one catogery 👇__"
+
+        text = f"**sᴇᴀʀᴄʜ Qᴜᴇʀʏ:** {query}\n\n__ᴘʟᴇᴀsᴇ sᴇʟᴇᴄᴛ ᴏɴᴇ ᴄᴀᴛᴇɢᴏʀʏ__"
     else:
-        # Get the total number of results
         total_results = response.get("total", 0)
 
-        # Iterate over each result
         for result in response.get("results", []):
-            # Extract relevant information from the result
             item_id = result.get("perma_url", "/").rsplit("/", 1)[1]
-            title = result.get("title", "unknown")
+            title = result.get("title", "ᴜɴᴋɴᴏᴡɴ")
             title = html.unescape(title)
-            result_type = result.get("type", "unknown")
-            artist = result.get("name", "unknown")
+            result_type = result.get("type", "ᴜɴᴋɴᴏᴡɴ")
+            artist = result.get("name", "ᴜɴᴋɴᴏᴡɴ")
             artist = html.unescape(artist)
             more_info = result.get("more_info", {})
             album = more_info.get("album", "")
 
-            # Define the mapping for button labels based on result type
             button_label_map = {
-                "song": f"🎙 {title} from '{album}'" if album else f"🎙 {title}",
-                "album": f"📚 {title}",
-                "playlist": f"💾 {title}",
-                "artist": f"👨‍🎤 {artist}",
+                "song":     f"sᴏɴɢ - {title} ғʀᴏᴍ '{album}'" if album else f"sᴏɴɢ - {title}",
+                "album":    f"ᴀʟʙᴜᴍ - {title}",
+                "playlist": f"ᴘʟᴀʏʟɪsᴛ - {title}",
+                "artist":   f"ᴀʀᴛɪsᴛ - {artist}",
             }
 
-            # Get the button label and callback data for the current result type
             button_label = button_label_map.get(result_type)
             if button_label:
                 buttons.append([InlineKeyboardButton(text=button_label, callback_data=f"{result_type}#{item_id}")])
 
-        text = f"**📈 Total Results:** {total_results}\n\n**🔍 Search Query:** {query}\n\n**📜 Page No:** {page_no}"
+        text = (
+            f"**ᴛᴏᴛᴀʟ ʀᴇsᴜʟᴛs:** {total_results}\n\n"
+            f"**sᴇᴀʀᴄʜ Qᴜᴇʀʏ:** {query}\n\n"
+            f"**ᴘᴀɢᴇ ɴᴏ:** {page_no}"
+        )
         navigation_buttons = []
         if page_no > 1:
-            navigation_buttons.append(InlineKeyboardButton("⬅️", callback_data=f"search#{search_type}#{page_no-1}"))
+            navigation_buttons.append(InlineKeyboardButton("ᴘʀᴇᴠɪᴏᴜs", callback_data=f"search#{search_type}#{page_no-1}"))
         if total_results > 10 * page_no:
-            navigation_buttons.append(InlineKeyboardButton("➡️", callback_data=f"search#{search_type}#{page_no+1}"))
+            navigation_buttons.append(InlineKeyboardButton("ɴᴇxᴛ", callback_data=f"search#{search_type}#{page_no+1}"))
         if navigation_buttons:
             buttons.append(navigation_buttons)
 
-
     if not buttons:
-        return await send_msg.edit(f'🔎 No search result found for your query `{query}`')
+        return await send_msg.edit(f'ɴᴏ sᴇᴀʀᴄʜ ʀᴇsᴜʟᴛ ғᴏᴜɴᴅ ғᴏʀ ʏᴏᴜʀ Qᴜᴇʀʏ `{query}`')
 
-    buttons.append([InlineKeyboardButton('Close ❌', callback_data="close")])
+    buttons.append([InlineKeyboardButton('ᴄʟᴏsᴇ', callback_data="close")])
     await send_msg.edit(text, reply_markup=InlineKeyboardMarkup(buttons))
