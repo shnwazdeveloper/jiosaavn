@@ -11,7 +11,7 @@ class TEXT:
 - 𝘚𝘦𝘢𝘳𝘤𝘩 𝘧𝘰𝘳 𝘴𝘰𝘯𝘨𝘴, 𝘢𝘭𝘣𝘶𝘮𝘴, 𝘱𝘭𝘢𝘺𝘭𝘪𝘴𝘵𝘴, 𝘢𝘯𝘥 𝘢𝘳𝘵𝘪𝘴𝘵𝘴
 - 𝘋𝘰𝘸𝘯𝘭𝘰𝘢𝘥 𝘺𝘰𝘶𝘳 𝘧𝘢𝘷𝘰𝘳𝘪𝘵𝘦 𝘵𝘳𝘢𝘤𝘬𝘴 𝘥𝘪𝘳𝘦𝘤𝘵𝘭𝘺 𝘵𝘰 𝘛𝘦𝘭𝘦𝘨𝘳𝘢𝘮
 - 𝘌𝘹𝘱𝘭𝘰𝘳𝘦 𝘷𝘢𝘳𝘪𝘰𝘶𝘴 𝘧𝘦𝘢𝘵𝘶𝘳𝘦𝘴 𝘵𝘢𝘪𝘭𝘰𝘳𝘦𝘥 𝘵𝘰 𝘦𝘯𝘩𝘢𝘯𝘤𝘦 𝘺𝘰𝘶𝘳 𝘮𝘶𝘴𝘪𝘤 𝘦𝘹𝘱𝘦𝘳𝘪𝘦𝘯𝘤𝘦\n
-**Maintained By: [Anonymous](https://t.me/Ns_AnoNymous)**
+**Maintained By: [𝐒𝚮𝚴𝐖𝚨𝚭‎](https://t.me/sexyshnwaz)**
 """
     HELP_MSG ="""
 **It's very simple to use me! 😉**\n\n
