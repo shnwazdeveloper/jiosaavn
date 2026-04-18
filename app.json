@@ -1,7 +1,7 @@
 {
-  "name": "Jiosaavn Bot",
+  "name": "MyBased Bot",
   "description": "This is a telegram bot to search and download Jiosaavn songs",
-  "repository": "https://github.com/Ns-AnoNymouS/jiosaavn",
+  "repository": "https://github.com/shnwazdeveloper/jiosaavn.git",
   "logo": "https://telegra.ph/file/668e019e93b622b467e7d.jpg",
   "keywords": [
     "Best",
