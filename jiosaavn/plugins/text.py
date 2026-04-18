@@ -1,26 +1,42 @@
-##### MODIFY MESSAGE ACCORDING TO U ###
-
 class TEXT:
- 
-    ###### COMMANDS RELATED 
- 
-    START_MSG ="""
-**Hello {mention},**
-<blockquote>ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴛʜᴇ ᴊɪᴏsᴀᴀᴠɴ ᴛᴇʟᴇɢʀᴀᴍ ʙᴏᴛ! ᴛʜɪs ᴘᴏᴡᴇʀғᴜʟ ʙᴏᴛ ᴀʟʟᴏᴡs ʏᴏᴜ ᴛᴏ sᴇᴀʀᴄʜ ᴀɴᴅ ᴅᴏᴡɴʟᴏᴀᴅ sᴏɴɢs, ᴘʟᴀʏʟɪsᴛs, ᴀʟʙᴜᴍs, ᴀɴᴅ ᴀʀᴛɪsᴛs ᴅɪʀᴇᴄᴛʟʏ ғʀᴏᴍ ᴊɪᴏsᴀᴀᴠɴ.</blockquote>\n\n
-**🔰 Here is the Features :**\n
-- 𝘚𝘦𝘢𝘳𝘤𝘩 𝘧𝘰𝘳 𝘴𝘰𝘯𝘨𝘴, 𝘢𝘭𝘣𝘶𝘮𝘴, 𝘱𝘭𝘢𝘺𝘭𝘪𝘴𝘵𝘴, 𝘢𝘯𝘥 𝘢𝘳𝘵𝘪𝘴𝘵𝘴
-- 𝘋𝘰𝘸𝘯𝘭𝘰𝘢𝘥 𝘺𝘰𝘶𝘳 𝘧𝘢𝘷𝘰𝘳𝘪𝘵𝘦 𝘵𝘳𝘢𝘤𝘬𝘴 𝘥𝘪𝘳𝘦𝘤𝘵𝘭𝘺 𝘵𝘰 𝘛𝘦𝘭𝘦𝘨𝘳𝘢𝘮
-- 𝘌𝘹𝘱𝘭𝘰𝘳𝘦 𝘷𝘢𝘳𝘪𝘰𝘶𝘴 𝘧𝘦𝘢𝘵𝘶𝘳𝘦𝘴 𝘵𝘢𝘪𝘭𝘰𝘳𝘦𝘥 𝘵𝘰 𝘦𝘯𝘩𝘢𝘯𝘤𝘦 𝘺𝘰𝘶𝘳 𝘮𝘶𝘴𝘪𝘤 𝘦𝘹𝘱𝘦𝘳𝘪𝘦𝘯𝘤𝘦\n
-**Maintained By: [𝐒𝚮𝚴𝐖𝚨𝚭‎](https://t.me/sexyshnwaz)**
+
+    ###### COMMANDS RELATED
+
+    START_MSG = """
+**ʜᴇʟʟᴏ {mention},**
+<blockquote>ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴛʜᴇ ᴊɪᴏsᴀᴀᴠɴ ᴛᴇʟᴇɢʀᴀᴍ ʙᴏᴛ! ᴛʜɪs ᴘᴏᴡᴇʀғᴜʟ ʙᴏᴛ ᴀʟʟᴏᴡs ʏᴏᴜ ᴛᴏ sᴇᴀʀᴄʜ ᴀɴᴅ ᴅᴏᴡɴʟᴏᴀᴅ sᴏɴɢs, ᴘʟᴀʏʟɪsᴛs, ᴀʟʙᴜᴍs, ᴀɴᴅ ᴀʀᴛɪsᴛs ᴅɪʀᴇᴄᴛʟʏ ғʀᴏᴍ ᴊɪᴏsᴀᴀᴠɴ.</blockquote>
+
+**🔰 ʜᴇʀᴇ ɪs ᴛʜᴇ ғᴇᴀᴛᴜʀᴇs :**
+
+- ꜱᴇᴀʀᴄʜ ꜰᴏʀ ꜱᴏɴɢꜱ, ᴀʟʙᴜᴍꜱ, ᴘʟᴀʏʟɪꜱᴛꜱ, ᴀɴᴅ ᴀʀᴛɪꜱᴛꜱ
+- ᴅᴏᴡɴʟᴏᴀᴅ ʏᴏᴜʀ ꜰᴀᴠᴏʀɪᴛᴇ ᴛʀᴀᴄᴋꜱ ᴅɪʀᴇᴄᴛʟʏ ᴛᴏ ᴛᴇʟᴇɢʀᴀᴍ
+- ᴇxᴘʟᴏʀᴇ ᴠᴀʀɪᴏᴜꜱ ꜰᴇᴀᴛᴜʀᴇꜱ ᴛᴀɪʟᴏʀᴇᴅ ᴛᴏ ᴇɴʜᴀɴᴄᴇ ʏᴏᴜʀ ᴍᴜꜱɪᴄ ᴇxᴘᴇʀɪᴇɴᴄᴇ
+
+**ᴍᴀɪɴᴛᴀɪɴᴇᴅ ʙʏ: [ꜱʜɴᴡᴀᴢ](https://t.me/sexyshnwaz)**
 """
-    HELP_MSG ="""
-**It's very simple to use me! 😉**\n\n
+
+    HELP_MSG = """
+**ɪᴛ's ᴠᴇʀʏ sɪᴍᴘʟᴇ ᴛᴏ ᴜsᴇ ᴍᴇ! 😉**
+
 <blockquote>
-1. Start by configuring your preferences using the `/settings` command.\n
-2. Send me the name of a song, playlist, album, or artist you want to search for.\n
-3. I'll handle the rest and provide you with the results!\n\n
-**😊 Feel free to explore and enjoy the music!**
+1. ꜱᴛᴀʀᴛ ʙʏ ᴄᴏɴꜰɪɢᴜʀɪɴɢ ʏᴏᴜʀ ᴘʀᴇꜰᴇʀᴇɴᴄᴇꜱ ᴜꜱɪɴɢ ᴛʜᴇ `/settings` ᴄᴏᴍᴍᴀɴᴅ.
+
+2. ꜱᴇɴᴅ ᴍᴇ ᴛʜᴇ ɴᴀᴍᴇ ᴏꜰ ᴀ ꜱᴏɴɢ, ᴘʟᴀʏʟɪꜱᴛ, ᴀʟʙᴜᴍ, ᴏʀ ᴀʀᴛɪꜱᴛ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ꜱᴇᴀʀᴄʜ ꜰᴏʀ.
+
+3. ɪ'ʟʟ ʜᴀɴᴅʟᴇ ᴛʜᴇ ʀᴇꜱᴛ ᴀɴᴅ ᴘʀᴏᴠɪᴅᴇ ʏᴏᴜ ᴡɪᴛʜ ᴛʜᴇ ʀᴇꜱᴜʟᴛꜱ!
+
+**😊 ꜰᴇᴇʟ ꜰʀᴇᴇ ᴛᴏ ᴇxᴘʟᴏʀᴇ ᴀɴᴅ ᴇɴᴊᴏʏ ᴛʜᴇ ᴍᴜꜱɪᴄ!**
 </blockquote>
 """
 
-  
+    ABOUT_MSG = """
+**ᴀʙᴏᴜᴛ ᴍᴇ 🤖**
+
+<blockquote>
+🔹 **ɴᴀᴍᴇ:** {me.first_name}
+🔹 **ᴜsᴇʀɴᴀᴍᴇ:** @{me.username}
+🔹 **ʟɪʙʀᴀʀʏ:** ᴘʏʀᴏɢʀᴀᴍ
+🔹 **ʟᴀɴɢᴜᴀɢᴇ:** ᴘʏᴛʜᴏɴ 3
+🔹 **ᴏᴡɴᴇʀ:** [ꜱʜɴᴡᴀᴢ](https://t.me/sexyshnwaz)
+</blockquote>
+"""
