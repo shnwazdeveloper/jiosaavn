@@ -21,9 +21,9 @@ logger = logging.getLogger(__name__)
 async def download(client: Bot, message: Message|CallbackQuery):
     if isinstance(message, CallbackQuery):
         _, item_id, search_type = message.data.split("#")
-        msg = await message.message.edit("**Processing...**")
+        msg = await message.message.edit("**ᴘʀᴏᴄᴇssɪɴɢ...**")
     else:
-        msg = await message.reply("**Processing...**", quote=True)
+        msg = await message.reply("**ᴘʀᴏᴄᴇssɪɴɢ...**", quote=True)
         msg.reply_to_message = message
         query = message.text
         item_id = query.rsplit("/", 1)[1]
@@ -45,14 +45,14 @@ async def download(client: Bot, message: Message|CallbackQuery):
 
         while True:
             response = await Jiosaavn().get_playlist_or_album(
-                album_id=album_id, 
-                playlist_id=playlist_id, 
+                album_id=album_id,
+                playlist_id=playlist_id,
                 page_no=page_no
             )
-            
+
             if not response or not response.get("list"):
                 break
-            
+
             songs = response["list"]
             for song in songs:
                 song_url = song.get("perma_url", "")
@@ -62,11 +62,12 @@ async def download(client: Bot, message: Message|CallbackQuery):
                 await download_tool(client, message, msg, song_id)
             page_no += 1
     else:
-        await msg.edit("Artists and Podcast upload not supported.")
+        await msg.edit("ᴀʀᴛɪsᴛs ᴀɴᴅ ᴘᴏᴅᴄᴀsᴛ ᴜᴘʟᴏᴀᴅ ɴᴏᴛ sᴜᴘᴘᴏʀᴛᴇᴅ.")
         return
 
-    if "Failed" not in msg.text:
+    if "ғᴀɪʟᴇᴅ" not in msg.text:
         await msg.delete()
+
 
 async def download_tool(client: Bot, message: Message|CallbackQuery, msg: Message, song_id: str):
     is_exist = await client.db.is_song_id_exist(song_id)
@@ -83,17 +84,17 @@ async def download_tool(client: Bot, message: Message|CallbackQuery, msg: Messag
                 if is_sent:
                     return
 
-    # Extract song data
+    # ᴇxᴛʀᴀᴄᴛ sᴏɴɢ ᴅᴀᴛᴀ
     song_response = await Jiosaavn().get_song(song_id=song_id)
     song_data = song_response["songs"][0]
 
-    # Extract metadata
-    title = song_data.get("title", "Unknown")
+    # ᴇxᴛʀᴀᴄᴛ ᴍᴇᴛᴀᴅᴀᴛᴀ
+    title = song_data.get("title", "ᴜɴᴋɴᴏᴡɴ")
     title = html.unescape(title)
     formatted_title = title.replace(" ", "-")
-    language = song_data.get("language", "Unknown")
+    language = song_data.get("language", "ᴜɴᴋɴᴏᴡɴ")
     more_info = song_data.get("more_info", {})
-    album = more_info.get("album", "Unknown")
+    album = more_info.get("album", "ᴜɴᴋɴᴏᴡɴ")
     artist_map = more_info.get("artistMap", {})
     artists = artist_map.get("artists", [])
 
@@ -103,26 +104,26 @@ async def download_tool(client: Bot, message: Message|CallbackQuery, msg: Messag
     music = more_info.get("music") or get_artist_by_role("music")
     singers = get_artist_by_role("singer") or music
     release_date = more_info.get("release_date")
-    copyright_text = more_info.get("copyright_text", "Unknown")
+    copyright_text = more_info.get("copyright_text", "ᴜɴᴋɴᴏᴡɴ")
     duration = int(more_info.get("duration", "0"))
     release_year = song_data.get("year")
     album_url = more_info.get("album_url", "")
     image_url = song_data.get("image", "").replace("150x150", "500x500")
     song_url = song_data.get('perma_url', f"https://jiosaavn.com/songs/{formatted_title}/{song_id}")
 
-    # Create caption
+    # ᴄʀᴇᴀᴛᴇ ᴄᴀᴘᴛɪᴏɴ
     text_data = [
         f"[\u2063]({image_url})"
-        f"**🎧 Song:** [{title}]({song_url})" if title else '',
-        f"**📚 Album:** [{album}]({album_url})" if album else '',
-        f"**📰 Language:** {language}" if language else '',
-        f"**📆 Release Date:** __{release_date}__" if release_date else '',
-        f"**📆 Release Year:** __{release_year}__" if not release_date and release_year else '',
+        f"**🎧 sᴏɴɢ:** [{title}]({song_url})" if title else '',
+        f"**📚 ᴀʟʙᴜᴍ:** [{album}]({album_url})" if album else '',
+        f"**📰 ʟᴀɴɢᴜᴀɢᴇ:** {language}" if language else '',
+        f"**📆 ʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ:** __{release_date}__" if release_date else '',
+        f"**📆 ʀᴇʟᴇᴀsᴇ ʏᴇᴀʀ:** __{release_year}__" if not release_date and release_year else '',
     ]
 
     caption = "\n\n".join(filter(None, text_data))
 
-    # Download and upload song
+    # ᴅᴏᴡɴʟᴏᴀᴅ ᴀɴᴅ ᴜᴘʟᴏᴀᴅ sᴏɴɢ
     download_dir = f"./download/{time.time()}{message.from_user.id}/"
     if not os.path.isdir(download_dir):
         os.makedirs(download_dir)
@@ -131,7 +132,7 @@ async def download_tool(client: Bot, message: Message|CallbackQuery, msg: Messag
     file_name = f"{download_dir}{title}_{quality}.mp3"
     thumbnail_location = f"{download_dir}{title}.jpg"
 
-    await msg.edit(f"__📥 Downloading {title}__")
+    await msg.edit(f"__📥 ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ {title}__")
     await client.send_chat_action(
         chat_id=message.from_user.id,
         action=ChatAction.RECORD_AUDIO
@@ -150,18 +151,19 @@ async def download_tool(client: Bot, message: Message|CallbackQuery, msg: Messag
     async with aiohttp.ClientSession() as session:
         async with session.get(image_url, headers=headers) as response:
             cover_art = await response.read()
+
     audio = MP4(pre_audio)
     audio["\xa9nam"] = title
     audio["\xa9alb"] = album
     audio["\xa9ART"] = singers
-    audio["\xa9cmt"] = f"Powered by NS Bots - {song_url}"
+    audio["\xa9cmt"] = f"ᴘᴏᴡᴇʀᴇᴅ ʙʏ ɴs ʙᴏᴛs - {song_url}"
     audio["cprt"] = copyright_text
     audio["\xa9day"] = release_year
     audio["covr"] = [MP4Cover(cover_art, imageformat=MP4Cover.FORMAT_JPEG)]
     audio.save()
     os.rename(pre_audio, file_name)
 
-    await msg.edit(f"__📤 Uploading {title}__")
+    await msg.edit(f"__📤 ᴜᴘʟᴏᴀᴅɪɴɢ {title}__")
     await client.send_chat_action(
         chat_id=message.from_user.id,
         action=ChatAction.UPLOAD_AUDIO
@@ -179,7 +181,7 @@ async def download_tool(client: Bot, message: Message|CallbackQuery, msg: Messag
     )
 
     if not song_file:
-        return await msg.edit(text=f"Failed to upload {song}")
+        return await msg.edit(text=f"ғᴀɪʟᴇᴅ ᴛᴏ ᴜᴘʟᴏᴀᴅ {title}")
 
     await client.db.update_song(song_id, quality, song_file.chat.id, song_file.id)
     shutil.rmtree(download_dir)
