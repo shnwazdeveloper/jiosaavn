@@ -9,18 +9,16 @@ from pyrogram.errors import MessageNotModified
 
 logger = logging.getLogger(__name__)
 
-# Telegram-supported reaction emojis
 VALID_REACTION_EMOJIS = ["👍", "👎", "😊", "😢", "😍", "🔥", "🎉"]
 
 @Bot.on_message(filters.command("settings"))
 @Bot.on_callback_query(filters.regex(r"^settings"))
 async def settings(client: Bot, message: Message|CallbackQuery):
-    # Try to get random emoji
     try:
         from jiosaavn.plugins.text import TEXT
         random_emoji = random.choice(TEXT.EMOJI_LIST)
     except (ImportError, AttributeError) as e:
-        logger.warning(f"Failed to access TEXT.EMOJI_LIST: {e}. Using default emoji list.")
+        logger.warning(f"ғᴀɪʟᴇᴅ ᴛᴏ ᴀᴄᴄᴇss ᴛᴇxᴛ.ᴇᴍᴏᴊɪ_ʟɪsᴛ: {e}. ᴜsɪɴɢ ᴅᴇғᴀᴜʟᴛ ᴇᴍᴏᴊɪ ʟɪsᴛ.")
         random_emoji = random.choice(VALID_REACTION_EMOJIS)
 
     if getattr(message, "text", None):
@@ -32,13 +30,13 @@ async def settings(client: Bot, message: Message|CallbackQuery):
                 big=True
             )
         except AttributeError:
-            logger.warning("Failed to send reaction due to AttributeError")
+            logger.warning("ғᴀɪʟᴇᴅ ᴛᴏ sᴇɴᴅ ʀᴇᴀᴄᴛɪᴏɴ ᴅᴜᴇ ᴛᴏ ᴀᴛᴛʀɪʙᴜᴛᴇᴇʀʀᴏʀ")
         except Exception as e:
-            logger.error(f"Error sending reaction: {e}")
-    
+            logger.error(f"ᴇʀʀᴏʀ sᴇɴᴅɪɴɢ ʀᴇᴀᴄᴛɪᴏɴ: {e}")
+
     await asyncio.sleep(0.5)
     if isinstance(message, Message):
-        msg = await message.reply("**Processing...**", quote=True)
+        msg = await message.reply("**ᴘʀᴏᴄᴇssɪɴɢ...**", quote=True)
     else:
         msg = message.message
         await message.answer()
@@ -46,61 +44,62 @@ async def settings(client: Bot, message: Message|CallbackQuery):
         if len(data) > 1:
             try:
                 _, key, value = data
-                if key in ["type", "quality"] and value:  # Validate key and value
+                if key in ["type", "quality"] and value:
                     await client.db.update_user(message.from_user.id, key, value)
-                    logger.info(f"Updated user {message.from_user.id} with {key}={value}")
+                    logger.info(f"ᴜᴘᴅᴀᴛᴇᴅ ᴜsᴇʀ {message.from_user.id} ᴡɪᴛʜ {key}={value}")
                 else:
-                    logger.warning(f"Invalid callback data: {message.data}")
+                    logger.warning(f"ɪɴᴠᴀʟɪᴅ ᴄᴀʟʟʙᴀᴄᴋ ᴅᴀᴛᴀ: {message.data}")
             except Exception as e:
-                logger.error(f"Failed to update user settings: {e}")
-                await msg.edit("Error updating settings. Please try again.")
+                logger.error(f"ғᴀɪʟᴇᴅ ᴛᴏ ᴜᴘᴅᴀᴛᴇ ᴜsᴇʀ sᴇᴛᴛɪɴɢs: {e}")
+                await msg.edit("ᴇʀʀᴏʀ ᴜᴘᴅᴀᴛɪɴɢ sᴇᴛᴛɪɴɢs. ᴘʟᴇᴀsᴇ ᴛʀʏ ᴀɢᴀɪɴ.")
 
     user = await client.db.get_user(message.from_user.id)
-    type = user.get('type', 'all')
+    user_type = user.get('type', 'all')
     quality = user.get('quality', '320kbps')
 
-    all = '✅ All' if type == 'all' else 'All'
-    albums = '✅ Albums' if type == 'albums' else 'Albums' 
-    songs = '✅ Songs' if type == 'songs' else 'Songs'
-    playlists = '✅ Playlist' if type == 'playlists' else 'Playlist'
-    
-    quality_320 = '✅ 320kbps' if quality == '320kbps' else '320kbps'
-    quality_160 = '✅ 160kbps' if quality == '160kbps' else '160kbps'
-    
+    all_btn      = '✅ ᴀʟʟ'      if user_type == 'all'       else 'ᴀʟʟ'
+    albums_btn   = '✅ ᴀʟʙᴜᴍs'   if user_type == 'albums'    else 'ᴀʟʙᴜᴍs'
+    songs_btn    = '✅ sᴏɴɢs'    if user_type == 'songs'     else 'sᴏɴɢs'
+    playlists_btn= '✅ ᴘʟᴀʏʟɪsᴛ' if user_type == 'playlists' else 'ᴘʟᴀʏʟɪsᴛ'
+
+    quality_320  = '✅ 320ᴋʙᴘs'  if quality == '320kbps'     else '320ᴋʙᴘs'
+    quality_160  = '✅ 160ᴋʙᴘs'  if quality == '160kbps'     else '160ᴋʙᴘs'
+
     buttons = [
         [
-            InlineKeyboardButton("𝐒𝐞𝐚𝐫𝐜𝐡 𝐓𝐲𝐩𝐞 🔍", callback_data="dummy"),
+            InlineKeyboardButton("sᴇᴀʀᴄʜ ᴛʏᴘᴇ", callback_data="dummy"),
         ],
         [
-            InlineKeyboardButton(all, callback_data='settings#type#all'),
-            InlineKeyboardButton(albums, callback_data='settings#type#albums'),
+            InlineKeyboardButton(all_btn,       callback_data='settings#type#all'),
+            InlineKeyboardButton(albums_btn,    callback_data='settings#type#albums'),
         ],
         [
-            InlineKeyboardButton(songs, callback_data='settings#type#songs'),
-            InlineKeyboardButton(playlists, callback_data='settings#type#playlists'),
+            InlineKeyboardButton(songs_btn,     callback_data='settings#type#songs'),
+            InlineKeyboardButton(playlists_btn, callback_data='settings#type#playlists'),
         ],
         [
-            InlineKeyboardButton("𝐀𝐮𝐝𝐢𝐨 𝐐𝐮𝐚𝐥𝐢𝐭𝐲 🔊", callback_data="dummy"),
+            InlineKeyboardButton("ᴀᴜᴅɪᴏ Qᴜᴀʟɪᴛʏ", callback_data="dummy"),
         ],
         [
             InlineKeyboardButton(quality_320, callback_data='settings#quality#320kbps'),
-            InlineKeyboardButton(quality_160, callback_data='settings#quality#160kbps')
+            InlineKeyboardButton(quality_160, callback_data='settings#quality#160kbps'),
         ],
-        [   
-            InlineKeyboardButton('𝐂𝐋𝐎𝐒𝐄 ❌', callback_data='close')
+        [
+            InlineKeyboardButton('ᴄʟᴏsᴇ', callback_data='close'),
         ]
     ]
 
-    text = '**Select the search result type and music quality 🧏‍♂️**'
+    text = '**sᴇʟᴇᴄᴛ ᴛʜᴇ sᴇᴀʀᴄʜ ʀᴇsᴜʟᴛ ᴛʏᴘᴇ ᴀɴᴅ ᴍᴜsɪᴄ Qᴜᴀʟɪᴛʏ**'
     try:
         if msg.text != text or msg.reply_markup != InlineKeyboardMarkup(buttons):
             await msg.edit(text, reply_markup=InlineKeyboardMarkup(buttons))
     except MessageNotModified:
-        logger.warning("Message not modified in settings_handler")
+        logger.warning("ᴍᴇssᴀɢᴇ ɴᴏᴛ ᴍᴏᴅɪғɪᴇᴅ ɪɴ sᴇᴛᴛɪɴɢs_ʜᴀɴᴅʟᴇʀ")
     except Exception as e:
-        logger.error(f"Failed to edit settings message: {e}")
-        await msg.edit("An error occurred while updating settings.")
+        logger.error(f"ғᴀɪʟᴇᴅ ᴛᴏ ᴇᴅɪᴛ sᴇᴛᴛɪɴɢs ᴍᴇssᴀɢᴇ: {e}")
+        await msg.edit("ᴀɴ ᴇʀʀᴏʀ ᴏᴄᴄᴜʀʀᴇᴅ ᴡʜɪʟᴇ ᴜᴘᴅᴀᴛɪɴɢ sᴇᴛᴛɪɴɢs.")
+
 
 @Bot.on_callback_query(filters.regex(r"^dummy$"))
 async def dummy(client: Bot, callback: CallbackQuery):
-    await callback.answer("PLEASE CHOOSE ANOTHER BUTTON 🙆", show_alert=True)
+    await callback.answer("ᴘʟᴇᴀsᴇ ᴄʜᴏᴏsᴇ ᴀɴᴏᴛʜᴇʀ ʙᴜᴛᴛᴏɴ", show_alert=True)
