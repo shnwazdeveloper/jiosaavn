@@ -6,6 +6,9 @@ import signal
 import threading
 import aiohttp
 from dotenv import load_dotenv
+
+load_dotenv()
+
 from jiosaavn.config.settings import KOYEB_URL, PING_INTERVAL
 
 try:

@@ -22,6 +22,22 @@
     "DATABASE_URL": {
       "description": "Mongodb token for saving the users data",
       "value": ""
+    },
+    "PORT": {
+      "description": "Port for the web server",
+      "value": "8080"
+    },
+    "OWNER_ID": {
+      "description": "Telegram user ID of the bot owner",
+      "value": ""
+    },
+    "KOYEB_URL": {
+      "description": "Public Koyeb app URL used for keep-alive pings",
+      "value": ""
+    },
+    "PING_INTERVAL": {
+      "description": "Seconds between keep-alive pings",
+      "value": "600"
     }
   },
   "buildpacks": [
